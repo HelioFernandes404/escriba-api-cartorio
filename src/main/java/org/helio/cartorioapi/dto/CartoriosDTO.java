@@ -1,39 +1,36 @@
-package org.helio.cartorioapi.entidades;
+package org.helio.cartorioapi.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.helio.cartorioapi.entidades.Atribuicaos;
 
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class CartoriosDTO {
 
-@Entity
-@Table(name = "tb_cartorios")
-public class Cartorios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(length = 150)
-    @NotNull
+    @NotBlank(message = "Campo requerido")
     private String nome;
 
     @Column(length = 250)
     private String observacao;
 
-
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private Situacaos situacao;
+    @JoinColumn(name = "situacao_id", nullable = false)
+    private SituacaosDTO situacao;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_atribuica_cartorio",
-            joinColumns = @JoinColumn(name = "atribuicao_cartorio_id"),
-            inverseJoinColumns = @JoinColumn(name = "atribuicoes_id"))
+    @OneToMany(mappedBy = "cartorio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Atribuicaos> atribuicoes;
 }

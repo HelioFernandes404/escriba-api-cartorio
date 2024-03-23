@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/atribuicoes")
-public class AtribuicaoCartorioController {
+public class AtribuicaosController {
 }

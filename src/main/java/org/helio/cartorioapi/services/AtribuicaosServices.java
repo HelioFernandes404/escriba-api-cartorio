@@ -1,10 +1,8 @@
 package org.helio.cartorioapi.services;
-import org.helio.cartorioapi.repositorios.AtribuicaoCartorioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AtribuicaoCartorioService {
+public class AtribuicaosServices {
 /*
     @Autowired
     private AtribuicaoCartorioRepository repository

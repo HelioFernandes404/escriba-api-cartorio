@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AtribuicaoCartorioDTO {
+public class AtribuicaosDTO {
 
     @Id
     @Column(length = 20)
@@ -27,7 +27,7 @@ public class AtribuicaoCartorioDTO {
     private boolean situacao = true;
 
     // Construtor de cópia para a classe SituacaoCartorioDTO.
-    public AtribuicaoCartorioDTO(AtribuicaoCartorioDTO entity) {
+    public AtribuicaosDTO(AtribuicaosDTO entity) {
         id = entity.getId();
         nome = entity.getNome();
         situacao = entity.isSituacao();
