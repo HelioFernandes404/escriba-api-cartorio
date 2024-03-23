@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 public class SituacaoCartorio {
+
     @Id
     @Column(length = 20)
     private String id;
@@ -17,6 +18,8 @@ public class SituacaoCartorio {
     @Column(length = 50)
     private String nome;
 
-    // Getters e Setters
+    @Column(nullable = false)
+    private boolean situacao = true;
+
 }
 
