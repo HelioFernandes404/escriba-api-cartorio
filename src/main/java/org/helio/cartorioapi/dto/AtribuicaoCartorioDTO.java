@@ -8,9 +8,28 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AtribuicaoCartorioDTO {
 
+    @Id
+    @Column(length = 20)
+    @NotBlank(message = "Campo requerido")
+    private String id;
+
+    @Column(length = 50)
+    @NotBlank(message = "Campo requerido")
+    private String nome;
+
+    @Column(nullable = false)
+    private boolean situacao = true;
+
+    // Construtor de cópia para a classe SituacaoCartorioDTO.
+    public AtribuicaoCartorioDTO(AtribuicaoCartorioDTO entity) {
+        id = entity.getId();
+        nome = entity.getNome();
+        situacao = entity.isSituacao();
+    }
 }

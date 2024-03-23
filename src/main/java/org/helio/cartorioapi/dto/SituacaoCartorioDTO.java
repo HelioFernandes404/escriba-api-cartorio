@@ -22,13 +22,9 @@ public class SituacaoCartorioDTO {
     @NotBlank(message = "Campo requerido")
     private String nome;
 
-    @Column(nullable = false)
-    private boolean situacao = true;
-
     // Construtor de cópia para a classe SituacaoCartorioDTO.
     public SituacaoCartorioDTO(SituacaoCartorioDTO entity) {
         id = entity.getId();
         nome = entity.getNome();
-        situacao = entity.isSituacao();
     }
 }

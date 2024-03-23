@@ -17,9 +17,5 @@ public class SituacaoCartorio {
 
     @Column(length = 50)
     private String nome;
-
-    @Column(nullable = false)
-    private boolean situacao = true;
-
 }
 
