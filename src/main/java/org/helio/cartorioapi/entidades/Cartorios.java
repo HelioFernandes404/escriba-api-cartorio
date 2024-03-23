@@ -2,10 +2,9 @@ package org.helio.cartorioapi.entidades;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
-public class Cartorio {
+public class Cartorios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
