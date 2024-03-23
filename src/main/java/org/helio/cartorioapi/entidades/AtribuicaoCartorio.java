@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 public class AtribuicaoCartorio {
+
     @Id
     @Column(length = 20)
     private String id;
@@ -21,6 +22,5 @@ public class AtribuicaoCartorio {
     @Column(nullable = false)
     private boolean situacao = true;
 
-    // Getters e Setters
 }
 
