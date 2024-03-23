@@ -1,6 +1,7 @@
 package org.helio.cartorioapi.entidades;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,7 @@ public class Cartorio {
     private int id;
 
     @Column(length = 150)
+    @NotNull
     private String nome;
 
     @Column(length = 250)
