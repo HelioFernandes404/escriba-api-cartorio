@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
+@Table(name = "tb_situacao_cartorio")
 public class SituacaoCartorio {
 
     @Id
