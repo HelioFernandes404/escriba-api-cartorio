@@ -27,13 +27,9 @@ public class Cartorios {
     private String observacao;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private Situacaos situacao;
+    private boolean situacao;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_atribuica_cartorio",
-            joinColumns = @JoinColumn(name = "atribuicao_cartorio_id"),
-            inverseJoinColumns = @JoinColumn(name = "atribuicoes_id"))
+    @OneToMany(mappedBy = "cartorio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Atribuicaos> atribuicoes;
 }

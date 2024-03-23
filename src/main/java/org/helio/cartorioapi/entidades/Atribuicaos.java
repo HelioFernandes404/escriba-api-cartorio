@@ -28,5 +28,8 @@ public class Atribuicaos {
     @Column(nullable = false)
     private boolean situacao = true;
 
+    @ManyToOne
+    @JoinColumn(name = "cartorio_id")
+    private Cartorios cartorio;
 }
 

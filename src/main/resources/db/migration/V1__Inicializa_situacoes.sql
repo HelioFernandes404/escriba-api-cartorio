@@ -12,3 +12,10 @@ INSERT INTO
     tb_situacaos (id, nome)
 VALUES
     ('SIT_BLOQUEADO', 'Bloqueado');
+
+
+
+
+
+
+
