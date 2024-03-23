@@ -1,8 +1,8 @@
 package org.helio.cartorioapi;
 
-import org.helio.cartorioapi.repositorios.AtribuicaoCartorioRepository;
+
 import org.helio.cartorioapi.repositorios.CartoriosRepository;
-import org.helio.cartorioapi.repositorios.SituacaoCartorioRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,9 +16,7 @@ public class CartorioapiApplication {
     }
 
     @Bean
-    public CommandLineRunner mappingDemo(CartoriosRepository cartoriosRepository,
-                                         AtribuicaoCartorioRepository atribuicaoCartorioRepository,
-                                         SituacaoCartorioRepository situacaoCartorioRepository
+    public CommandLineRunner mappingDemo(
     ) {
         return args -> {
             /*
