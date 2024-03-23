@@ -1,8 +1,13 @@
 package org.helio.cartorioapi.entidades;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +23,10 @@ public class Situacaos {
 
     @Column(length = 50)
     private String nome;
+
+    @OneToMany(mappedBy = "situacao")
+    @JsonManagedReference
+    private Set<Cartorios> cartorios;
+
 }
 

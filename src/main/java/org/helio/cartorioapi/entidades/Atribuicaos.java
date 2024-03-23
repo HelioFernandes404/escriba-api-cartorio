@@ -3,9 +3,12 @@ package org.helio.cartorioapi.entidades;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 
 @Data
@@ -28,8 +31,7 @@ public class Atribuicaos {
     @Column(nullable = false)
     private boolean situacao = true;
 
-    @ManyToOne
-    @JoinColumn(name = "cartorio_id")
-    private Cartorios cartorio;
+    @ManyToMany(mappedBy = "atribuicoes")
+    private Set<Cartorios> cartorios;
 }
 
