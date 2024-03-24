@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.helio.cartorioapi.dto.AtribuicaosDTO;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -33,7 +34,8 @@ public class Atribuicaos {
     private boolean situacao = true;
 
     @ManyToMany(mappedBy = "atribuicoes")
-    private Set<Cartorios> cartorios;
+    @JsonBackReference // Adicionado para evitar serialização circular
+    private List<Cartorios> cartorios;
 
     public Atribuicaos(AtribuicaosDTO dto) {
         id = dto.getId();

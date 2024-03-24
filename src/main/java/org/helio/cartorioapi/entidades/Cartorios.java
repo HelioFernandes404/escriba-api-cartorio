@@ -33,15 +33,14 @@ public class Cartorios {
 
     @ManyToOne
     @JoinColumn(name = "situacao_id", referencedColumnName = "id")
-    @JsonBackReference
     private Situacaos situacao;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "cartorio_atribuicao",
             joinColumns = @JoinColumn(name = "cartorio_id"),
             inverseJoinColumns = @JoinColumn(name = "atribuicao_id")
     )
-    @JsonIgnore
-    private Set<Atribuicaos> atribuicoes;
+    @JsonManagedReference
+    private List<Atribuicaos> atribuicoes;
 }

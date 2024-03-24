@@ -19,34 +19,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CartoriosDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(length = 150)
-    @NotBlank(message = "Campo requerido")
+    private Integer id;
     private String nome;
-
-    @Column(length = 250)
     private String observacao;
-
-
-    private SituacaosDTO situacao;
-
-    private List<Atribuicaos> atribuicoes;
+    private SituacaosDTO situacaosDTO;
+    private List<AtribuicaosDTO> atribuicoes;
 
     public CartoriosDTO(Cartorios entity) {
-        id = entity.getId();
-        nome = entity.getNome();
-        observacao = entity.getObservacao();
-        situacao = new SituacaosDTO(entity.getSituacao());
 
-        List<AtribuicaosDTO> atribuicoesDTOs = new ArrayList<>();
-        for (Atribuicaos atribuicao : entity.getAtribuicoes()) {
-            AtribuicaosDTO atribuicaoDTO = new AtribuicaosDTO(atribuicao.getId(), atribuicao.getNome(), atribuicao.isSituacao());
-            atribuicoesDTOs.add(atribuicaoDTO);
-        }
-        atribuicoes = atribuicoesDTOs.stream().map(x -> new Atribuicaos(x)).collect(Collectors.toList());
     }
 
 }

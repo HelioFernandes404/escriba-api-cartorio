@@ -1,12 +1,14 @@
 package org.helio.cartorioapi.entidades;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,8 +27,8 @@ public class Situacaos {
     private String nome;
 
     @OneToMany(mappedBy = "situacao")
-    @JsonManagedReference
-    private Set<Cartorios> cartorios;
+    @JsonBackReference // Adicionado para evitar serialização circular
+    private List<Cartorios> cartorios;
 
 }
 

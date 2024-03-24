@@ -17,4 +17,6 @@ public interface CartoriosRepository extends JpaRepository<Cartorios, Integer> {
     List<Object[]> findCartoriosWithAtribuicoes();
 
     Page<Cartorios> findAllBy(Pageable pageable);
+
+    Cartorios getReferenceById(Integer id);
 }
