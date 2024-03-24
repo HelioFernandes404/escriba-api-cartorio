@@ -67,7 +67,7 @@ public class SituacaosServices {
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial Nome já informado no registro com código" + id);
+            throw new DatabaseException("Registro utilizado em outro cadastro");
         }
     }
 
