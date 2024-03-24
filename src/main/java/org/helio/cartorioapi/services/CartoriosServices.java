@@ -81,12 +81,49 @@ public class CartoriosServices {
         }
     }
 
+
     private void copyDtoToEntity(CartoriosDTO dto, Cartorios entity) {
         entity.setId(dto.getId());
         entity.setNome(dto.getNome());
         entity.setObservacao(dto.getObservacao());
 
 
+        if (dto.getSituacao() != null) {
+            Situacaos entitySituacaos = situacaoRepository.getReferenceById(dto.getSituacao().getId());
+            entity.setSituacao(entitySituacaos);
+        } else {
+            Situacaos defaultSituacao = new Situacaos("SIT_BLOQUEADO", "Bloqueado", null);
+            entity.setSituacao(defaultSituacao);
+        }
 
+        if (dto.getAtribuicoes() != null) {
+            List<Atribuicaos> list = new ArrayList<>();
+            for (AtribuicaosDTO atribuicaoDTO : dto.getAtribuicoes()) {
+                Atribuicaos atribuicao = atribuicaoRepository.getReferenceById(atribuicaoDTO.getId());
+
+                list.add(atribuicao);
+            }
+            entity.setAtribuicoes(list);
+        } else {
+            //Atribuicaos defaultAtribuicaos = new Atribuicaos();
+            //entity.setAtribuicoes();
+            entity.setAtribuicoes(new ArrayList<>());
+        }
     }
+
+
+
+    private Atribuicaos convertAtribuicaosDTOToAtribuicaos(AtribuicaosDTO atribuicaosDTO) {
+        if (atribuicaosDTO == null) {
+            return null;
+        }
+        Atribuicaos atribuicao = new Atribuicaos();
+        // Copie os campos do DTO para a entidade aqui
+        // Exemplo: atribuicao.setId(atribuicaosDTO.getId());
+        atribuicao.setId(atribuicaosDTO.getId());
+        atribuicao.setNome(atribuicaosDTO.getNome());
+        atribuicao.setSituacao(atribuicao.isSituacao());
+        return atribuicao;
+    }
+
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.helio.cartorioapi.entidades.Atribuicaos;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
@@ -14,8 +16,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AtribuicaosMinDTO {
     @Id
-    @Column(length = 20)
-    @NotBlank(message = "Campo requerido")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(length = 50)

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.helio.cartorioapi.entidades.Situacaos;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
@@ -15,15 +17,10 @@ import javax.validation.constraints.NotBlank;
 public class SituacaosDTO {
 
     @Id
-    @Column(length = 20)
-    @NotBlank(message = "Campo requerido id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
-    @Column(length = 50)
-    @NotBlank(message = "Campo requerido nome")
     private String nome;
 
-    // Construtor de cópia para a classe SituacaoCartorioDTO.
     public SituacaosDTO(Situacaos entity) {
         id = entity.getId();
         nome = entity.getNome();

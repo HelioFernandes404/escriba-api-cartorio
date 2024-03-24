@@ -75,6 +75,7 @@ public class CartoriosController {
 
     @PostMapping
     public ResponseEntity<CartoriosDTO> insert(@Valid @RequestBody CartoriosDTO dto) {
+
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();

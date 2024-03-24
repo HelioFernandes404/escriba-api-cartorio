@@ -19,14 +19,21 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CartoriosDTO {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String observacao;
-    private SituacaosDTO situacaosDTO;
+    private SituacaosDTO situacao;
     private List<AtribuicaosDTO> atribuicoes;
 
     public CartoriosDTO(Cartorios entity) {
-
+        this.id = entity.getId();
+        this.nome = entity.getNome();
+        this.observacao = entity.getObservacao();
+        this.situacao = new SituacaosDTO(entity.getSituacao());
+        this.atribuicoes = entity.getAtribuicoes().stream()
+                .map(AtribuicaosDTO::new)
+                .collect(Collectors.toList());
     }
-
 }
