@@ -2,10 +2,9 @@ package org.helio.cartorioapi.services;
 
 import org.helio.cartorioapi.dto.*;
 import org.helio.cartorioapi.dto.CartoriosDTO;
-import org.helio.cartorioapi.entidades.Atribuicaos;
+import org.helio.cartorioapi.entidades.*;
 import org.helio.cartorioapi.entidades.Cartorios;
 import org.helio.cartorioapi.entidades.Cartorios;
-import org.helio.cartorioapi.entidades.Situacaos;
 import org.helio.cartorioapi.repositorios.AtribuicaoRepository;
 import org.helio.cartorioapi.repositorios.CartoriosRepository;
 import org.helio.cartorioapi.repositorios.SituacaoRepository;
@@ -23,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,6 +51,10 @@ public class CartoriosServices {
 
     @Transactional
     public CartoriosDTO insert(CartoriosDTO dto) {
+        Optional<Cartorios> existingByNome = cartoriosRepository.findByNome(dto.getNome());
+        if (existingByNome.isPresent()) {
+            throw new DatabaseException("Nome já informado no registro com código: " + existingByNome.get().getId());
+        }
         Cartorios entity = new Cartorios();
         copyDtoToEntity(dto, entity);
         entity = cartoriosRepository.save(entity);
@@ -60,14 +64,20 @@ public class CartoriosServices {
 
     @Transactional
     public CartoriosDTO update(Integer id, CartoriosDTO dto) {
-        try {
-            Cartorios entity = cartoriosRepository.getReferenceById(id);
-            copyDtoToEntity(dto, entity);
-            entity = cartoriosRepository.save(entity);
-            return new CartoriosDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+        Optional<Cartorios> existing = cartoriosRepository.findById(id);
+        if (!existing.isPresent()) {
+            throw new DatabaseException("Registro com ID " + id + " não encontrado");
         }
+        Cartorios entity = existing.get();
+        if (!entity.getNome().equals(dto.getNome())) {
+            Optional<Cartorios> duplicate = cartoriosRepository.findByNome(dto.getNome());
+            if (duplicate.isPresent()) {
+                throw new DatabaseException("Nome já informado no registro com código " + duplicate.get().getId());
+            }
+        }
+        copyDtoToEntity(dto, entity);
+        entity = cartoriosRepository.save(entity);
+        return new CartoriosDTO(entity);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
