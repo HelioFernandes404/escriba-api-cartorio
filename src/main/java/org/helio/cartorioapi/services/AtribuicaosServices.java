@@ -47,8 +47,6 @@ public class AtribuicaosServices {
         return new AtribuicaosDTO(entity);
     }
 
-
-
     @Transactional
     public AtribuicaosDTO update(String id, AtribuicaosDTO dto) {
         try {
@@ -56,8 +54,7 @@ public class AtribuicaosServices {
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new AtribuicaosDTO(entity);
-        }
-        catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
         }
     }
@@ -66,11 +63,9 @@ public class AtribuicaosServices {
     public void delete(String id) {
         try {
             repository.deleteById(id);
-        }
-        catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial Nome já informado no registro com código" + id);
         }
     }
