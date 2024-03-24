@@ -1,6 +1,7 @@
 package org.helio.cartorioapi.services;
 import org.helio.cartorioapi.dto.AtribuicaosDTO;
 import org.helio.cartorioapi.dto.AtribuicaosDTO;
+import org.helio.cartorioapi.dto.AtribuicaosMinDTO;
 import org.helio.cartorioapi.entidades.Atribuicaos;
 import org.helio.cartorioapi.repositorios.AtribuicaoRepository;
 import org.helio.cartorioapi.repositorios.SituacaoRepository;
@@ -9,15 +10,27 @@ import org.helio.cartorioapi.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.data.domain.Pageable;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class AtribuicaosServices {
     
     @Autowired
     private AtribuicaoRepository repository;
+
+    @Transactional(readOnly = true)
+    public Page<AtribuicaosMinDTO> findAll(Pageable pageable) {
+        Page<Atribuicaos> result = repository.findAllBy(pageable);
+        return result.map(x -> new AtribuicaosMinDTO(x));
+    }
 
     @Transactional(readOnly = true)
     public AtribuicaosDTO findById(String id) {
@@ -34,10 +47,19 @@ public class AtribuicaosServices {
         return new AtribuicaosDTO(entity);
     }
 
-    private void copyDtoToEntity(AtribuicaosDTO dto, Atribuicaos entity) {
-        entity.setId(dto.getId());
-        entity.setNome(dto.getNome());
-        entity.setSituacao(dto.isSituacao());
+
+
+    @Transactional
+    public AtribuicaosDTO update(String id, AtribuicaosDTO dto) {
+        try {
+            Atribuicaos entity = repository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new AtribuicaosDTO(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -52,4 +74,11 @@ public class AtribuicaosServices {
             throw new DatabaseException("Falha de integridade referencial Nome já informado no registro com código" + id);
         }
     }
+
+    private void copyDtoToEntity(AtribuicaosDTO dto, Atribuicaos entity) {
+        entity.setId(dto.getId());
+        entity.setNome(dto.getNome());
+        entity.setSituacao(dto.isSituacao());
+    }
+
 }
