@@ -19,7 +19,6 @@ import java.net.URI;
 @RequestMapping("/atribuicoes")
 public class AtribuicaosController {
 
-
     @Autowired
     private AtribuicaosServices service;
 
