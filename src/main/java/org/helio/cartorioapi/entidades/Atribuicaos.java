@@ -2,6 +2,7 @@ package org.helio.cartorioapi.entidades;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -22,12 +23,12 @@ import java.util.Set;
 @AllArgsConstructor
 public class Atribuicaos {
     @Id
-    @Column(length = 20)
-    @NotBlank(message = "Campo requerido")
+    @NotBlank(message = "ID é obrigatório")
+    @Size(max = 20, message = "ID deve ter no máximo 20 caracteres")
     private String id;
 
-    @Column(length = 50)
-    @NotBlank(message = "Campo requerido")
+    @NotBlank(message = "ID é obrigatório")
+    @Size(max = 50, message = "ID deve ter no máximo 20 caracteres")
     private String nome;
 
     @Column(nullable = false)

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 @Data
@@ -17,18 +18,16 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AtribuicaosDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotBlank(message = "ID é obrigatório")
+    @Size(max = 20, message = "ID deve ter no máximo 20 caracteres")
     private String id;
 
-    @Column(length = 50)
-    @NotBlank(message = "Campo requerido")
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(max = 50, message = "Nome deve ter no máximo 50 caracteres")
     private String nome;
 
-    @Column(nullable = false)
     private boolean situacao = true;
 
-    // Construtor de cópia para a classe SituacaoCartorioDTO.
     public AtribuicaosDTO(Atribuicaos entity) {
         id = entity.getId();
         nome = entity.getNome();
