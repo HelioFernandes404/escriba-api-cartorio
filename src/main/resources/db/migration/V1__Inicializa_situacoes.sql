@@ -43,6 +43,7 @@ INSERT INTO tb_atribuicaos (id, nome) VALUES ('ATR_PROCESSOS', 'Processos Judici
 -- Como o H2 não suporta LAST_INSERT_ID(), vamos usar uma sequência para gerar o ID do cartório
 CREATE SEQUENCE cartorio_id_seq;
 INSERT INTO tb_cartorios (id, nome, observacao, situacao_id) VALUES (NEXT VALUE FOR cartorio_id_seq, 'Cartório Central', 'Oferece serviços de registro, notarização e emissão de certidões.', 'SIT_ATIVO');
+INSERT INTO tb_cartorios (id, nome, observacao, situacao_id) VALUES (NEXT VALUE FOR cartorio_id_seq, 'Cartório Novo Sol', 'Oferece serviços de registro, notarização e emissão de certidões da salvação.', 'SIT_ATIVO');
 
 -- Associando atribuições ao cartório
 -- Como não podemos usar LAST_INSERT_ID(), vamos assumir que o ID do cartório é 1 (ou o próximo valor da sequência)

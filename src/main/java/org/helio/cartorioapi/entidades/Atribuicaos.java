@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.helio.cartorioapi.dto.AtribuicaosDTO;
 
 import java.util.Set;
 
@@ -33,5 +34,11 @@ public class Atribuicaos {
 
     @ManyToMany(mappedBy = "atribuicoes")
     private Set<Cartorios> cartorios;
+
+    public Atribuicaos(AtribuicaosDTO dto) {
+        id = dto.getId();
+        nome = dto.getNome();
+        situacao = dto.isSituacao();
+    }
 }
 

@@ -1,10 +1,17 @@
 package org.helio.cartorioapi.controllers;
 
+import org.helio.cartorioapi.dto.CartoriosDTO;
+import org.helio.cartorioapi.dto.CartoriosMinDTO;
+import org.helio.cartorioapi.dto.SituacaosMinDTO;
 import org.helio.cartorioapi.entidades.CartorioComAtribuicoes;
 import org.helio.cartorioapi.entidades.Cartorios;
 import org.helio.cartorioapi.repositorios.CartoriosRepository;
 import org.helio.cartorioapi.services.CartoriosServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +29,25 @@ public class CartoriosController {
     private CartoriosRepository  cartoriosRepository;
 
     @Autowired
-    private CartoriosServices cartoriosServices;
+    private CartoriosServices service;
+
+    @GetMapping
+    public ResponseEntity<Page<CartoriosMinDTO>> findAll(@RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").ascending());
+        Page<CartoriosMinDTO> dto = service.findAll(pageable);
+        return ResponseEntity.ok(dto);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cartorios> getCartorioById(@PathVariable Integer id) {
-        Cartorios cartorio = cartoriosServices.getbyId(id);
+        Cartorios cartorio = service.getbyId(id);
         if (cartorio == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cartorio);
     }
 
-    @GetMapping("/com-atribuicoes")
+    @GetMapping("/get/v1")
     public List<CartorioComAtribuicoes> getCartoriosComAtribuicoes() {
         List<Object[]> results = cartoriosRepository.findCartoriosWithAtribuicoes();
         List<CartorioComAtribuicoes> cartorios = new ArrayList<>();
