@@ -4,6 +4,8 @@ Implemente um micro-serviço para uma API de cartorio:
 
 ## Índice da documentação
 
+_Link do collection postman:_ [cartorios postman collection](cartorios.postman_collection)
+
 - [Atribuicaos](#Atribuicaos)
   - [Listagem paginada](#listagem-paginada)
   - [Inclusão de novo registro](#inclusão-de-novo-registro)
