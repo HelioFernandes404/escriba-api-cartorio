@@ -110,7 +110,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"SIT_ATIVO\",\r\n    \"nome\": \"Ativo\"\r\n}",
+							"raw": "{\r\n    \"id\": \"SET_NOVO_VAZIO\",\r\n    \"nome\": \"vazio\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -323,7 +323,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \"id\": \"nova atribuicoes\",\r\n \"nome\": \"nova atribuicoes\",\r\n \"situacao\": true\r\n}\r\n",
+							"raw": "{\r\n \"id\": \"versão nova\",\r\n \"nome\": \"nova atribuicoes\",\r\n \"situacao\": true\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,7 +535,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Cartório NEW PUT\",\r\n    \"observacao\": \"Oferece serviços de registro, notarização e emissão de certidões.\",\r\n    \"situacao\": {\r\n        \"id\": \"SIT_ATIVO\"\r\n    },\r\n    \"atribuicoes\": [\r\n        {\r\n            \"id\": \"ATR_REGISTRO\"\r\n        },\r\n        {\r\n            \"id\": \"ATR_NOTARIA\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Cartório PUT\",\r\n    \"observacao\": \"PUT Oferece serviços de registro, notarização e emissão de certidões.\",\r\n    \"situacao\": {\r\n        \"id\": \"SIT_ATIVO\",\r\n        \"nome\": \"put\"\r\n    },\r\n    \"atribuicoes\": [\r\n        {\r\n            \"id\": \"ATR_REGISTRO\",\r\n            \"nome\": \"PUT registro\",\r\n            \"situacao\": true\r\n        },\r\n        {\r\n            \"id\": \"ATR_NOTARIA\",\r\n            \"nome\": \"PUT de Documentos\",\r\n            \"situacao\": true\r\n        },\r\n        {\r\n            \"id\": \"ATR_CERTIDOES\",\r\n            \"nome\": \"PUT de Certidões\",\r\n            \"situacao\": true\r\n        },\r\n        {\r\n            \"id\": \"ATR_PROCESSOS\",\r\n            \"nome\": \"PUT Judiciais\",\r\n            \"situacao\": true\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -543,7 +543,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9564/cartorios/3",
+							"raw": "http://localhost:9564/cartorios/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -551,7 +551,7 @@
 							"port": "9564",
 							"path": [
 								"cartorios",
-								"3"
+								"1"
 							]
 						}
 					},

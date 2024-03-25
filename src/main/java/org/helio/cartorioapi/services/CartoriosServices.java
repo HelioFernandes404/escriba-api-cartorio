@@ -1,10 +1,12 @@
 package org.helio.cartorioapi.services;
 
-import org.helio.cartorioapi.dto.*;
+import org.helio.cartorioapi.dto.AtribuicaosDTO;
 import org.helio.cartorioapi.dto.CartoriosDTO;
-import org.helio.cartorioapi.entidades.*;
+import org.helio.cartorioapi.dto.CartoriosMinDTO;
+import org.helio.cartorioapi.dto.SituacaosDTO;
+import org.helio.cartorioapi.entidades.Atribuicaos;
 import org.helio.cartorioapi.entidades.Cartorios;
-import org.helio.cartorioapi.entidades.Cartorios;
+import org.helio.cartorioapi.entidades.Situacaos;
 import org.helio.cartorioapi.repositorios.AtribuicaoRepository;
 import org.helio.cartorioapi.repositorios.CartoriosRepository;
 import org.helio.cartorioapi.repositorios.SituacaoRepository;
@@ -19,12 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class CartoriosServices {
@@ -35,6 +34,10 @@ public class CartoriosServices {
     private AtribuicaoRepository atribuicaoRepository;
     @Autowired
     private SituacaoRepository situacaoRepository;
+    @Autowired
+    private SituacaosServices situacaosServices;
+    @Autowired
+    private AtribuicaosServices atribuicaosServices;
 
     @Transactional(readOnly = true)
     public Page<CartoriosMinDTO> findAll(Pageable pageable) {
@@ -75,7 +78,48 @@ public class CartoriosServices {
                 throw new DatabaseException("Nome já informado no registro com código " + duplicate.get().getId());
             }
         }
-        copyDtoToEntity(dto, entity);
+
+
+        // Atualizando Cartorio
+        entity.setId(dto.getId());
+        entity.setNome(dto.getNome());
+        entity.setObservacao(dto.getObservacao());
+
+
+        // Atualizando a situação
+        SituacaosDTO situacaosDTO = dto.getSituacao();
+        Optional<Situacaos> situacaoOptional = situacaoRepository.findById(situacaosDTO.getId());
+        Situacaos situacao;
+        if (!situacaoOptional.isPresent()) {
+            // Se a situação com o ID especificado não for encontrada, cria uma nova situação
+            situacao = new Situacaos();
+            situacao.setId(situacaosDTO.getId());
+            situacao.setNome(situacaosDTO.getNome());
+            // Aqui você pode definir outros campos da situação conforme necessário
+            situacao = situacaoRepository.save(situacao);
+        } else {
+            // Se a situação for encontrada, atualiza o nome
+            situacao = situacaoOptional.get();
+            situacao.setNome(situacaosDTO.getNome());
+            situacao = situacaoRepository.save(situacao);
+        }
+        entity.setSituacao(situacao);
+
+        // Atualizando as atribuições
+        List<Atribuicaos> atribuicaosList = new ArrayList<>();
+        for (AtribuicaosDTO atribuicaoDTO : dto.getAtribuicoes()) {
+            Optional<Atribuicaos> atribuicaoOptional = atribuicaoRepository.findById(atribuicaoDTO.getId());
+            if (!atribuicaoOptional.isPresent()) {
+                throw new DatabaseException("Atribuição com ID " + atribuicaoDTO.getId() + " não encontrada");
+            }
+            Atribuicaos atribuicao = atribuicaoOptional.get();
+            atribuicao.setId(atribuicaoDTO.getId());
+            atribuicao.setNome(atribuicaoDTO.getNome());
+            atribuicao = atribuicaoRepository.save(atribuicao);
+            atribuicaosList.add(atribuicao);
+        }
+        entity.setAtribuicoes(atribuicaosList);
+
         entity = cartoriosRepository.save(entity);
         return new CartoriosDTO(entity);
     }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.helio.cartorioapi.dto.SituacaosDTO;
 
 import java.util.List;
 import java.util.Set;
@@ -35,5 +36,9 @@ public class Situacaos {
     @JsonBackReference // Adicionado para evitar serialização circular
     private List<Cartorios> cartorios;
 
+    public Situacaos(SituacaosDTO situacaosDTO) {
+        id = situacaosDTO.getId();
+        nome = situacaosDTO.getNome();
+    }
 }
 
