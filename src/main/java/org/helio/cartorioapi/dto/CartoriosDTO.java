@@ -27,7 +27,8 @@ public class CartoriosDTO {
     private Integer id;
 
     @NotBlank(message = "Nome é obrigatório")
-    @Size(max = 150)
+    @Size(max = 150, message = "Nome deve ter no máximo 50 caracteres")
+    @Column(unique = true)
     private String nome;
 
     @Size(max = 250)

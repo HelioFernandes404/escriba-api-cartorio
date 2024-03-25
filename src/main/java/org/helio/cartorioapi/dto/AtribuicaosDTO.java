@@ -18,12 +18,14 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AtribuicaosDTO {
 
+    @Id
     @NotBlank(message = "ID é obrigatório")
     @Size(max = 20, message = "ID deve ter no máximo 20 caracteres")
     private String id;
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(max = 50, message = "Nome deve ter no máximo 50 caracteres")
+    @Column(unique = true)
     private String nome;
 
     private boolean situacao = true;

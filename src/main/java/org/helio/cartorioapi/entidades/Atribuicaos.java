@@ -22,13 +22,15 @@ import java.util.Set;
 @Table(name = "tb_atribuicaos")
 @AllArgsConstructor
 public class Atribuicaos {
-    @Id
-    @NotBlank(message = "ID é obrigatório")
+
     @Size(max = 20, message = "ID deve ter no máximo 20 caracteres")
+    @NotBlank(message = "ID é obrigatório")
+    @Id
     private String id;
 
-    @NotBlank(message = "ID é obrigatório")
-    @Size(max = 50, message = "ID deve ter no máximo 20 caracteres")
+    @Size(max = 50, message = "Nome deve ter no máximo 50 caracteres")
+    @NotBlank(message = "Nome é obrigatório")
+    @Column(unique = true)
     private String nome;
 
     @Column(nullable = false)

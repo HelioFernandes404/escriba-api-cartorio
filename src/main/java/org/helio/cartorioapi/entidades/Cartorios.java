@@ -1,7 +1,9 @@
 package org.helio.cartorioapi.entidades;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,12 +22,14 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_cartorios")
 public class Cartorios {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer id;
 
-    @Column(length = 150)
-    @NotNull
+    @Size(max = 150, message = "Nome deve ter no máximo 50 caracteres")
+    @NotBlank(message = "Nome é obrigatório")
+    @Column(unique = true)
     private String nome;
 
     @Column(length = 250)

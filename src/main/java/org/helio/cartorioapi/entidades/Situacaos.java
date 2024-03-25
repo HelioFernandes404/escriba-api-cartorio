@@ -1,5 +1,7 @@
 package org.helio.cartorioapi.entidades;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,11 +21,14 @@ import java.util.Set;
 @Table(name = "tb_situacaos")
 public class Situacaos {
 
+    @Size(max = 20, message = "ID deve ter no máximo 20 caracteres")
+    @NotBlank(message = "ID é obrigatório")
     @Id
-    @Column(length = 20)
     private String id;
 
-    @Column(length = 50)
+    @Size(max = 50, message = "Nome deve ter no máximo 50 caracteres")
+    @NotBlank(message = "Nome é obrigatório")
+    @Column(unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "situacao")

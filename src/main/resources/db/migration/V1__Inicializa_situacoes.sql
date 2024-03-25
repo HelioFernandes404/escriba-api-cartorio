@@ -1,20 +1,20 @@
 -- Criação da tabela de situações do cartório
 CREATE TABLE tb_situacaos (
                               id VARCHAR(20) PRIMARY KEY,
-                              nome VARCHAR(50) NOT NULL
+                              nome VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Criação da tabela de atribuições do cartório
 CREATE TABLE tb_atribuicaos (
                                 id VARCHAR(20) PRIMARY KEY,
-                                nome VARCHAR(50) NOT NULL,
+                                nome VARCHAR(50) NOT NULL UNIQUE,
                                 situacao BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 -- Criação da tabela de cartórios
 CREATE TABLE tb_cartorios (
                               id INT AUTO_INCREMENT PRIMARY KEY,
-                              nome VARCHAR(150) NOT NULL,
+                              nome VARCHAR(150) NOT NULL UNIQUE,
                               observacao VARCHAR(250),
                               situacao_id VARCHAR(20),
                               FOREIGN KEY (situacao_id) REFERENCES tb_situacaos(id)
