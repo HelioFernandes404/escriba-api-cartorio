@@ -1,6 +1,6 @@
 # Projeto Java
 
-Implemente um micro-serviço para uma API de cartorio:
+Implementação de um micro-serviço para uma API de cartorio:
 
 ## Índice da documentação
 
